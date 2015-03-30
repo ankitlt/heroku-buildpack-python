@@ -167,7 +167,22 @@ source $BIN_DIR/steps/pylibmc
 source $BIN_DIR/steps/cryptography
 
 # Install dependencies with Pip.
+
+# Install node and yuglify to run collectstatic
 source $BIN_DIR/steps/pip-install
+if [ -f $BIN_DIR/install_nodejs ]; then
+    echo "-----> Running install_nodejs"
+    chmod +x $BIN_DIR/install_nodejs
+    $BIN_DIR/install_nodejs
+
+
+    if [ -f $BIN_DIR/install_yuglify ]; then
+        echo "-----> Running install_yuglify"
+        chmod +x $BIN_DIR/install_yuglify
+        $BIN_DIR/install_yuglify
+    fi
+
+fi
 
 # Django collectstatic support.
 sub-env $BIN_DIR/steps/collectstatic
